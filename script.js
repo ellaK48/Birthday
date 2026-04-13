@@ -33,6 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (map && marker && coordinatesText) {
         map.addEventListener("click", function (event) {
+            submitBtn.disabled = false;
+
             console.log("map clicked");
 
             const rect = map.getBoundingClientRect();
@@ -54,7 +56,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
-function sayHello() {
-    alert("Hello from your website!");
-}
