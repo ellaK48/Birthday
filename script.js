@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("JS is connected");
 
+    const shouldResetScore = document.body.dataset.resetScore === "true";
+
+    if (shouldResetScore) {
+        localStorage.setItem("totalScore", 0);
+    }
+
     const slider = document.getElementById("yearSlider");
     const yearDisplay = document.getElementById("yearDisplay");
     const submitBtn = document.getElementById("submitBtn");
@@ -73,6 +79,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             totalScoreText.textContent =
                 "Total score: " + totalScore + " / 5000";
+
+            const previousTotal = Number(localStorage.getItem("totalScore")) || 0;
+            const newTotal = previousTotal + totalScore;
+
+            localStorage.setItem("totalScore", newTotal);
 
             const modal = new bootstrap.Modal(document.getElementById("scoreModal"));
             modal.show();
