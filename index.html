@@ -15,7 +15,33 @@
 <button class="btn btn-primary" onclick="sayHello()">Click Me</button>
 
 
-<input type="range" id="yearSlider" min="1900" max="2025" value="1960" step="1">
+<div id="mapContainer" style="position: relative; display: inline-block;">
+    <img id="worldMap" src="images/worldmap.jpg" alt="World Map" style="max-width: 800px; width: 100%;">
+    <div id="marker" style="
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: red;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+    "></div>
+</div>
+
+<p id="coordinates">Click the map to choose a location.</p>
+
+
+
+
+<input
+        type="range"
+        id="yearSlider"
+        min="1850"
+        max="2025"
+        value="1938"
+        step="1"
+        data-correct-year="2001"
+>
 <div id="yearDisplay">1960</div>
 
 <button id="submitBtn">Submit</button>
