@@ -1,4 +1,3 @@
-
 const slider = document.getElementById("yearSlider");
 const yearDisplay = document.getElementById("yearDisplay");
 const submitBtn = document.getElementById("submitBtn");
