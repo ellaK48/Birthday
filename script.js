@@ -56,23 +56,23 @@ document.addEventListener("DOMContentLoaded", function () {
             const correctY = Number(map.dataset.correctY);
 
             const yearDifference = Math.abs(guessYear - correctYear);
-            const yearScore = Math.max(0, 1250 - yearDifference * 25);
+            const yearScore = Math.max(0, 2500 - yearDifference * 50);
 
             const dx = guessX - correctX;
             const dy = guessY - correctY;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            const locationScore = Math.max(0, 1250 - distance * 20);
+            const locationScore = Math.max(0, 2500 - distance * 40);
 
             const totalScore = Math.round(yearScore + locationScore);
 
             yearScoreText.textContent =
-                "Year score: " + Math.round(yearScore) + " / 1250";
+                "Year score: " + Math.round(yearScore) + " / 2500";
 
             locationScoreText.textContent =
-                "Location score: " + Math.round(locationScore) + " / 1250";
+                "Location score: " + Math.round(locationScore) + " / 2500";
 
             totalScoreText.textContent =
-                "Total score: " + totalScore + " / 2500";
+                "Total score: " + totalScore + " / 5000";
 
             const modal = new bootstrap.Modal(document.getElementById("scoreModal"));
             modal.show();
