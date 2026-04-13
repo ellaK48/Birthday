@@ -4,7 +4,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const slider = document.getElementById("yearSlider");
     const yearDisplay = document.getElementById("yearDisplay");
     const submitBtn = document.getElementById("submitBtn");
-    const result = document.getElementById("result");
+
+    const map = document.getElementById("worldMap");
+    const marker = document.getElementById("marker");
+    const coordinatesText = document.getElementById("coordinates");
+
+    const yearScoreText = document.getElementById("yearScoreText");
+    const locationScoreText = document.getElementById("locationScoreText");
+    const totalScoreText = document.getElementById("totalScoreText");
+
+    let guessX = null;
+    let guessY = null;
 
     if (slider && yearDisplay) {
         yearDisplay.textContent = slider.value;
@@ -14,45 +24,62 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    if (slider && submitBtn && result) {
-        submitBtn.addEventListener("click", function () {
-            const correctYear = Number(slider.dataset.correctYear);
-            const guess = Number(slider.value);
-
-            if (guess === correctYear) {
-                result.textContent = "Correct!";
-            } else {
-                result.textContent = "Not quite. The correct year was " + correctYear;
-            }
-        });
-    }
-
-    const map = document.getElementById("worldMap");
-    const marker = document.getElementById("marker");
-    const coordinatesText = document.getElementById("coordinates");
-
-    if (map && marker && coordinatesText) {
+    if (map && marker && coordinatesText && submitBtn) {
         map.addEventListener("click", function (event) {
-            submitBtn.disabled = false;
-
-            console.log("map clicked");
-
             const rect = map.getBoundingClientRect();
 
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
 
-            const percentX = (x / rect.width) * 100;
-            const percentY = (y / rect.height) * 100;
+            guessX = (x / rect.width) * 100;
+            guessY = (y / rect.height) * 100;
 
-            marker.style.left = percentX + "%";
-            marker.style.top = percentY + "%";
+            marker.style.left = guessX + "%";
+            marker.style.top = guessY + "%";
             marker.style.display = "block";
 
             coordinatesText.textContent =
-                "Selected location: x = " + x.toFixed(0) +
-                ", y = " + y.toFixed(0) +
-                " | " + percentX.toFixed(1) + "%, " + percentY.toFixed(1) + "%";
+                "Selected location: " +
+                guessX.toFixed(1) + "%, " +
+                guessY.toFixed(1) + "%";
+
+            submitBtn.disabled = false;
+        });
+    }
+
+    if (slider && submitBtn && map) {
+        submitBtn.addEventListener("click", function () {
+            const correctYear = Number(slider.dataset.correctYear);
+            const guessYear = Number(slider.value);
+
+            const correctX = Number(map.dataset.correctX);
+            const correctY = Number(map.dataset.correctY);
+
+            const yearDifference = Math.abs(guessYear - correctYear);
+            const yearScore = Math.max(0, 1250 - yearDifference * 25);
+
+            const dx = guessX - correctX;
+            const dy = guessY - correctY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const locationScore = Math.max(0, 1250 - distance * 20);
+
+            const totalScore = Math.round(yearScore + locationScore);
+
+            yearScoreText.textContent =
+                "Year score: " + Math.round(yearScore) + " / 1250";
+
+            locationScoreText.textContent =
+                "Location score: " + Math.round(locationScore) + " / 1250";
+
+            totalScoreText.textContent =
+                "Total score: " + totalScore + " / 2500";
+
+            const modal = new bootstrap.Modal(document.getElementById("scoreModal"));
+            modal.show();
         });
     }
 });
+
+function sayHello() {
+    alert("Hello from your website!");
+}
