@@ -21,6 +21,9 @@ submitBtn.addEventListener("click", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("map clicked");
+
     const map = document.getElementById("worldMap");
     const marker = document.getElementById("marker");
     const coordinatesText = document.getElementById("coordinates");
