@@ -3,16 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Finished</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .score-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 350px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            color: gray;
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Your Final Score</h1>
-<h2 id="finalScore"></h2>
+
+<div class="score-card">
+    <div class="title">🎉 Game Complete!</div>
+
+    <div id="finalScore" class="score"></div>
+
+    <div class="subtitle">Out of 25,000 points</div>
+
+    <a href="index.html" class="btn btn-primary btn-lg w-100">Play Again</a>
+</div>
 
 <script>
-    const finalScore = localStorage.getItem("totalScore");
+    const finalScore = Number(localStorage.getItem("totalScore")) || 0;
 
     document.getElementById("finalScore").textContent =
-        "Final Score: " + finalScore;
+        finalScore.toLocaleString();
+
+    // Optional: clear score when replaying
+    document.querySelector("a").addEventListener("click", function () {
+        localStorage.setItem("totalScore", 0);
+    });
 </script>
 
 </body>
