@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finished</title>
+</head>
+<body>
+<h1>Your Final Score</h1>
+<h2 id="finalScore"></h2>
+
+<script>
+    const finalScore = localStorage.getItem("totalScore");
+
+    document.getElementById("finalScore").textContent =
+        "Final Score: " + finalScore;
+</script>
+
+</body>
+</html>
